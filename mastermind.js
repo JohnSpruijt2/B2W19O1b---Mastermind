@@ -9,6 +9,7 @@ const mainDiv = document.createElement("div")
     var page = document.getElementById('page')
 
     var amountCorrect = 0
+    var amountHalf = 0
 
 for (i=0; i<12; i++) {
     for (y=0; y<4; y++) {
@@ -90,6 +91,9 @@ function submit() {
         if (playerChoice[i]==colourCode[i]){
             amountCorrect++
         }
+        else if (colourCode.includes(playerChoice[i])) {
+            amountHalf++
+        }
     }
     if (playerChoice[0] == "none" || playerChoice[1] == "none" || playerChoice[2] == "none" || playerChoice[3] == "none") {
         alert("Your selection isn't complete!")
@@ -100,8 +104,10 @@ function submit() {
             document.getElementById(''+number+tries).setAttribute('src','images/Red.png')
             number++
         }
-        
-
+        for (i=0; i<amountHalf; i++) {
+            document.getElementById(''+number+tries).setAttribute('src','images/White.png')
+            number++
+        }
         playerChoice = ["none","none","none","none"]
         tries--
         amountCorrect = 0
@@ -132,8 +138,8 @@ function colourPick(colour) {
 
 function reset() {
     playerChoice = ["none","none","none","none"]
-    document.getElementById('box'+tries+'0').innerHTML = '<img src="images/'+colour+'.png" alt="colour">'
-    document.getElementById('box'+tries+'1').innerHTML = '<img src="images/'+colour+'.png" alt="colour">'
-    document.getElementById('box'+tries+'2').innerHTML = '<img src="images/'+colour+'.png" alt="colour">'
-    document.getElementById('box'+tries+'3').innerHTML = '<img src="images/'+colour+'.png" alt="colour">'
+    document.getElementById('box'+tries+'0').innerHTML = '<img src="" alt="">'
+    document.getElementById('box'+tries+'1').innerHTML = '<img src="" alt="">'
+    document.getElementById('box'+tries+'2').innerHTML = '<img src="" alt="">'
+    document.getElementById('box'+tries+'3').innerHTML = '<img src="" alt="">'
 }
