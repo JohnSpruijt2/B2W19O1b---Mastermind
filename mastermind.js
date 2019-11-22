@@ -8,7 +8,7 @@ const mainDiv = document.createElement("div")
     mainDiv.setAttribute('id',"page")
     var page = document.getElementById('page')
 
-
+    var amountCorrect = 0
 
 for (i=0; i<12; i++) {
     for (y=0; y<4; y++) {
@@ -17,6 +17,11 @@ for (i=0; i<12; i++) {
             box.setAttribute('class',"box")
             box.setAttribute('id',"box"+i+y)
     }
+    var checkBox = document.createElement("div")
+        page.appendChild(checkBox)
+        checkBox.setAttribute('class',"checkBox")
+        checkBox.setAttribute('id',"checkbox"+i)
+        checkBox.innerHTML = '<img src="images/Black.png" alt="correct" id="6'+i+'"><img src="images/Black.png" alt="correct" id="7'+i+'"><img src="images/Black.png" alt="correct" id="8'+i+'"><img src="images/Black.png" alt="correct" id="9'+i+'">'
     br()
 }
 br()
@@ -62,26 +67,44 @@ var x = document.createElement("button")
     x.innerHTML = '<img src="images/White.png" alt="colour">'
     x.setAttribute('onclick',"colourPick('White')")
 br()
+br()
     x = document.createElement("button")
     page.appendChild(x)
     x.setAttribute('id',"submit")
     x.setAttribute('class',"submit")
     x.innerHTML = 'submit'
     x.setAttribute('onclick',"submit()")
+br()
+    x = document.createElement("button")
+    page.appendChild(x)
+    x.setAttribute('id',"reset")
+    x.setAttribute('onclick',"reset()")
+    x.innerHTML = "reset current selections"
 
-
-var colours = ["red","green","blue","yellow","black","white"]
+var colours = ["Red","Green","Blue","Yellow","Black","White"]
 var colourCode = [colours[Math.floor((Math.random() * 5) + 1)],colours[Math.floor((Math.random() * 5) + 1)],colours[Math.floor((Math.random() * 5) + 1)],colours[Math.floor((Math.random() * 5) + 1)]]
 var playerChoice = ["none","none","none","none"]
-
-
+console.log(colourCode)
 function submit() {
+    for (i=0; i<4; i++) {
+        if (playerChoice[i]==colourCode[i]){
+            amountCorrect++
+        }
+    }
     if (playerChoice[0] == "none" || playerChoice[1] == "none" || playerChoice[2] == "none" || playerChoice[3] == "none") {
         alert("Your selection isn't complete!")
     }
     else {
+        var number = 6 
+        for (i=0; i<amountCorrect; i++) {
+            document.getElementById(''+number+tries).setAttribute('src','images/Red.png')
+            number++
+        }
+        
+
         playerChoice = ["none","none","none","none"]
         tries--
+        amountCorrect = 0
     }
 }
 
@@ -93,6 +116,7 @@ function colourPick(colour) {
     }
     else {
         i = 1
+       
     do {
         if (playerChoice[change] == "none") {
             playerChoice[change] = colour
@@ -104,4 +128,12 @@ function colourPick(colour) {
         }
     } while (i == 1);
     }
+}
+
+function reset() {
+    playerChoice = ["none","none","none","none"]
+    document.getElementById('box'+tries+'0').innerHTML = '<img src="images/'+colour+'.png" alt="colour">'
+    document.getElementById('box'+tries+'1').innerHTML = '<img src="images/'+colour+'.png" alt="colour">'
+    document.getElementById('box'+tries+'2').innerHTML = '<img src="images/'+colour+'.png" alt="colour">'
+    document.getElementById('box'+tries+'3').innerHTML = '<img src="images/'+colour+'.png" alt="colour">'
 }

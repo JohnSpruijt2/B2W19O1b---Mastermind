@@ -6,7 +6,7 @@ body {
     background-color: grey;
 }
 #page {
-    background-color: rgb(241, 241, 148);
+    background-color: rgba(165, 124, 42, 0.548);
     height: 100%;
     max-height: 809.1px;
     width: 1000px;
@@ -37,10 +37,42 @@ body {
     height: 40px;
     width: 40px;
     border: none;
+    background: none;
 }
 img {
     height: 30px;
 }
 #submit {
     width: 60px;
+    border-radius: 20px;
+    height: 25px;
+    background-color: darkgrey;
+    border: none;
+}
+.checkBox {
+    font-size: 0px;
+    line-height: 0px;
+    width: 50px;
+    max-width: 50px;
+    height: 39px;
+    max-height: 39px;
+    background-image: url("../images/CheckEmpty.png");
+    background-size: 50px;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    display: inline-block;
+    border: 1px solid black;
+    margin: 1px;
+    margin-top: 7.5px;
+}
+.checkBox img {
+    height: 18px;
+    float: left;
+}
+#reset {
+    width: 160px;
+    height: 25px;
+    border-radius: 20px;
+    background-color: darkgrey;
+    border: none;
 }
