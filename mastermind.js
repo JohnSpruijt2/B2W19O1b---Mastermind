@@ -8,6 +8,19 @@ var mainDiv = document.createElement("div")
     mainDiv.setAttribute('id',"page")
     var page = document.getElementById('page')
 
+
+
+for (i=0; i<12; i++) {
+    for (x=0; x<5; x++) {
+        var box = document.createElement("div")
+            page.appendChild(box)
+            box.setAttribute('class',"box")
+            box.setAttribute('id',"box"+i+x)
+    }
+    br()
+}
+br()
+br()
     x = document.createElement("button")
     page.appendChild(x)
     x.setAttribute('id',"colorRed")
