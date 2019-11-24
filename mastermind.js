@@ -11,21 +11,42 @@ const mainDiv = document.createElement("div")
     var amountCorrect = 0
     var amountHalf = 0
 
-for (i=0; i<12; i++) {
+    var title = document.createElement("h1")
+        title.innerHTML = "Mastermind!"
+        page.appendChild(title)
+
+for (i=-1; i<12; i++) {
     for (y=0; y<4; y++) {
-        var box = document.createElement("div")
+        if (i==-1) {
+            var box = document.createElement("div")
+            page.appendChild(box)
+            box.setAttribute('class',"box")
+            box.setAttribute('id',"awnserBox"+i+y)
+            box.innerHTML = "?"
+            box.style.backgroundImage = "none"
+            box.style.backgroundColor = "black"
+            box.style.color = "white"
+            box.style.borderColor = "white"
+        }
+        else {
+            var box = document.createElement("div")
             page.appendChild(box)
             box.setAttribute('class',"box")
             box.setAttribute('id',"box"+i+y)
+        }
     }
-    var checkBox = document.createElement("div")
+    if (i==-1) {
+
+    }
+    else {
+        var checkBox = document.createElement("div")
         page.appendChild(checkBox)
         checkBox.setAttribute('class',"checkBox")
         checkBox.setAttribute('id',"checkbox"+i)
         checkBox.innerHTML = '<img src="images/Black.png" alt="correct" id="6'+i+'"><img src="images/Black.png" alt="correct" id="7'+i+'"><img src="images/Black.png" alt="correct" id="8'+i+'"><img src="images/Black.png" alt="correct" id="9'+i+'">'
+    }
     br()
 }
-br()
 var x = document.createElement("button")
     page.appendChild(x)
     x.setAttribute('id',"colorRed")
@@ -68,7 +89,6 @@ var x = document.createElement("button")
     x.innerHTML = '<img src="images/White.png" alt="colour">'
     x.setAttribute('onclick',"colourPick('White')")
 br()
-br()
     x = document.createElement("button")
     page.appendChild(x)
     x.setAttribute('id',"submit")
@@ -81,20 +101,43 @@ br()
     x.setAttribute('id',"reset")
     x.setAttribute('onclick',"reset()")
     x.innerHTML = "reset current selections"
+br()
+    x = document.createElement("button")
+    page.appendChild(x)
+    x.setAttribute('id',"newGame")
+    x.setAttribute('onclick',"location.reload()")
+    x.innerHTML = "Start new Game"
 
-var colours = ["Red","Green","Blue","Yellow","Black","White"]
-var colourCode = [colours[Math.floor((Math.random() * 5) + 1)],colours[Math.floor((Math.random() * 5) + 1)],colours[Math.floor((Math.random() * 5) + 1)],colours[Math.floor((Math.random() * 5) + 1)]]
-var playerChoice = ["none","none","none","none"]
+var thisHasBeenDone = false
+colourCodePicker()
+function colourCodePicker() {
+    window.colours = ["Red","Green","Blue","Yellow","Black","White","Red"]
+    window.colourCode = [colours[Math.floor((Math.random() * 6) + 1)],colours[Math.floor((Math.random() * 5) + 1)],colours[Math.floor((Math.random() * 5) + 1)],colours[Math.floor((Math.random() * 5) + 1)]]
+    window.playerChoice = ["none","none","none","none"]
+    for (i=0; i<4; i++) {
+        if (colourCode[i] == colourCode[i+1] || colourCode[i] == colourCode[i+2] || colourCode[i] == colourCode[i+3] || colourCode[i] == colourCode[i-1] || colourCode[i] == colourCode[i-2] || colourCode[i] == colourCode[i-3]) {
+            colourCodePicker()
+        }
+    }
+}
+
 console.log(colourCode)
 function submit() {
     for (i=0; i<4; i++) {
         if (playerChoice[i]==colourCode[i]){
             amountCorrect++
+            thisHasBeenDone = true
         }
-        else if (colourCode.includes(playerChoice[i])) {
-            amountHalf++
         }
+    for (i=0; i<4; i++) {
+        if (colourCode.includes(playerChoice[i])) {
+            if (thisHasBeenDone != true) {
+                amountHalf++
+            }
     }
+    console.log('amountHalf = '+amountHalf)
+    }
+    thisHasBeenDone = false
     if (playerChoice[0] == "none" || playerChoice[1] == "none" || playerChoice[2] == "none" || playerChoice[3] == "none") {
         alert("Your selection isn't complete!")
     }
@@ -110,8 +153,37 @@ function submit() {
         }
         playerChoice = ["none","none","none","none"]
         tries--
+        if (tries == -1) {
+            document.getElementById("submit").disabled = true;
+            document.getElementById("reset").disabled = true;
+            var options = ["colorWhite","colorBlack","colorYellow","colorBlue","colorGreen","colorRed"]
+            for (i=0; i<6; i++) {
+                var removeVar = document.getElementById(options[i])
+                removeVar.parentNode.removeChild(removeVar);
+            }
+            for (i=0; i<4; i++) {
+                document.getElementById("awnserBox-1"+i).innerHTML = "<img src='images/"+colourCode[i]+".png' alt''>"
+            }
+            alert("you lost!")
+        }
+        if (amountCorrect == 4) {
+            document.getElementById("submit").disabled = true;
+            document.getElementById("reset").disabled = true;
+            var options = ["colorWhite","colorBlack","colorYellow","colorBlue","colorGreen","colorRed"]
+            for (i=0; i<6; i++) {
+                var removeVar = document.getElementById(options[i])
+                removeVar.parentNode.removeChild(removeVar);
+            }
+            for (i=0; i<4; i++) {
+                document.getElementById("awnserBox-1"+i).innerHTML = "<img src='images/"+colourCode[i]+".png' alt''>"
+            }
+            alert("you won!")
+        }
         amountCorrect = 0
+        amountHalf = 0
     }
+    console.log("tries = "+tries)
+    console.log("playerChoice = "+playerChoice)
 }
 
 var tries = 11
