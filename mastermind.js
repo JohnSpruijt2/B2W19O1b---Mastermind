@@ -1,3 +1,4 @@
+var colours = ["Red","Green","Blue","Yellow","Black","White"]
 function br() {
     var x = document.createElement("a")
         x.innerHTML = "<br>"
@@ -47,47 +48,14 @@ for (i=-1; i<12; i++) {
     }
     br()
 }
-var x = document.createElement("button")
-    page.appendChild(x)
-    x.setAttribute('id',"colorRed")
-    x.setAttribute('class',"options")
-    x.innerHTML = '<img src="images/Red.png" alt="colour">'
-    x.setAttribute('onclick',"colourPick('Red')")
-
-    x = document.createElement("button")
-    page.appendChild(x)
-    x.setAttribute('id',"colorGreen")
-    x.setAttribute('class',"options")
-    x.innerHTML = '<img src="images/Green.png" alt="colour">'
-    x.setAttribute('onclick',"colourPick('Green')")
-
-    x = document.createElement("button")
-    page.appendChild(x)
-    x.setAttribute('id',"colorBlue")
-    x.setAttribute('class',"options")
-    x.innerHTML = '<img src="images/Blue.png" alt="colour">'
-    x.setAttribute('onclick',"colourPick('Blue')")
-
-    x = document.createElement("button")
-    page.appendChild(x)
-    x.setAttribute('id',"colorYellow")
-    x.setAttribute('class',"options")
-    x.innerHTML = '<img src="images/Yellow.png" alt="colour">'
-    x.setAttribute('onclick',"colourPick('Yellow')")
-
-    x = document.createElement("button")
-    page.appendChild(x)
-    x.setAttribute('id',"colorBlack")
-    x.setAttribute('class',"options")
-    x.innerHTML = '<img src="images/Black.png" alt="colour">'
-    x.setAttribute('onclick',"colourPick('Black')")
-
-    x = document.createElement("button")
-    page.appendChild(x)
-    x.setAttribute('id',"colorWhite")
-    x.setAttribute('class',"options")
-    x.innerHTML = '<img src="images/White.png" alt="colour">'
-    x.setAttribute('onclick',"colourPick('White')")
+    for (i=0; i<6; i++) {
+    var x = document.createElement("button")
+        page.appendChild(x)
+        x.setAttribute('id',"color"+colours[i])
+        x.setAttribute('class',"options")
+        x.innerHTML = '<img src="images/'+colours[i]+'.png" alt="colour">'
+        x.setAttribute('onclick',"colourPick('"+colours[i]+"')")
+    }
 br()
     x = document.createElement("button")
     page.appendChild(x)
@@ -111,8 +79,7 @@ br()
 var thisHasBeenDone = false
 colourCodePicker()
 function colourCodePicker() {
-    window.colours = ["Red","Green","Blue","Yellow","Black","White","Red"]
-    window.colourCode = [colours[Math.floor((Math.random() * 6) + 1)],colours[Math.floor((Math.random() * 5) + 1)],colours[Math.floor((Math.random() * 5) + 1)],colours[Math.floor((Math.random() * 5) + 1)]]
+    window.colourCode = [colours[Math.floor((Math.random() * 6))],colours[Math.floor((Math.random() * 5) + 1)],colours[Math.floor((Math.random() * 5) + 1)],colours[Math.floor((Math.random() * 5) + 1)]]
     window.playerChoice = ["none","none","none","none"]
     for (i=0; i<4; i++) {
         if (colourCode[i] == colourCode[i+1] || colourCode[i] == colourCode[i+2] || colourCode[i] == colourCode[i+3] || colourCode[i] == colourCode[i-1] || colourCode[i] == colourCode[i-2] || colourCode[i] == colourCode[i-3]) {
@@ -121,21 +88,19 @@ function colourCodePicker() {
     }
 }
 
-console.log(colourCode)
 function submit() {
     for (i=0; i<4; i++) {
         if (playerChoice[i]==colourCode[i]){
             amountCorrect++
             thisHasBeenDone = true
         }
-        }
+    }
     for (i=0; i<4; i++) {
         if (colourCode.includes(playerChoice[i])) {
             if (thisHasBeenDone != true) {
                 amountHalf++
             }
     }
-    console.log('amountHalf = '+amountHalf)
     }
     thisHasBeenDone = false
     if (playerChoice[0] == "none" || playerChoice[1] == "none" || playerChoice[2] == "none" || playerChoice[3] == "none") {
@@ -182,8 +147,6 @@ function submit() {
         amountCorrect = 0
         amountHalf = 0
     }
-    console.log("tries = "+tries)
-    console.log("playerChoice = "+playerChoice)
 }
 
 var tries = 11
@@ -194,7 +157,6 @@ function colourPick(colour) {
     }
     else {
         i = 1
-       
     do {
         if (playerChoice[change] == "none") {
             playerChoice[change] = colour
@@ -210,8 +172,7 @@ function colourPick(colour) {
 
 function reset() {
     playerChoice = ["none","none","none","none"]
-    document.getElementById('box'+tries+'0').innerHTML = '<img src="" alt="">'
-    document.getElementById('box'+tries+'1').innerHTML = '<img src="" alt="">'
-    document.getElementById('box'+tries+'2').innerHTML = '<img src="" alt="">'
-    document.getElementById('box'+tries+'3').innerHTML = '<img src="" alt="">'
+    for (i=0; i<4; i++) {
+        document.getElementById('box'+tries+i).innerHTML = '<img src="" alt="">'
+    }
 }
