@@ -85,7 +85,6 @@ function colourCodePicker() {
             colourCodePicker()
         }
     }
-    console.log(colourCode)
 }
 var thisHasBeenDone = [false,false,false,false]
 function submit() {
@@ -101,8 +100,9 @@ function submit() {
                 amountHalf++
             }
     }
+    thisHasBeenDone[i] = false
     }
-    thisHasBeenDone = false
+    
     if (playerChoice[0] == "none" || playerChoice[1] == "none" || playerChoice[2] == "none" || playerChoice[3] == "none") {
         alert("Your selection isn't complete!")
     }
