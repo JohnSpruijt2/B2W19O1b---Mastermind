@@ -76,7 +76,6 @@ br()
     x.setAttribute('onclick',"location.reload()")
     x.innerHTML = "Start new Game"
 
-var thisHasBeenDone = false
 colourCodePicker()
 function colourCodePicker() {
     window.colourCode = [colours[Math.floor((Math.random() * 6))],colours[Math.floor((Math.random() * 5) + 1)],colours[Math.floor((Math.random() * 5) + 1)],colours[Math.floor((Math.random() * 5) + 1)]]
@@ -86,18 +85,19 @@ function colourCodePicker() {
             colourCodePicker()
         }
     }
+    console.log(colourCode)
 }
-
+var thisHasBeenDone = [false,false,false,false]
 function submit() {
     for (i=0; i<4; i++) {
         if (playerChoice[i]==colourCode[i]){
             amountCorrect++
-            thisHasBeenDone = true
+            thisHasBeenDone[i] = true
         }
     }
     for (i=0; i<4; i++) {
         if (colourCode.includes(playerChoice[i])) {
-            if (thisHasBeenDone != true) {
+            if (thisHasBeenDone[i] != true) {
                 amountHalf++
             }
     }
