@@ -85,6 +85,7 @@ function colourCodePicker() {
             colourCodePicker()
         }
     }
+    console.log(colourCode)
 }
 var thisHasBeenDone = [false,false,false,false]
 function submit() {
@@ -96,9 +97,15 @@ function submit() {
     }
     for (i=0; i<4; i++) {
         if (colourCode.includes(playerChoice[i])) {
-            if (thisHasBeenDone[i] != true) {
-                amountHalf++
+            if (playerChoice[i] == playerChoice[i+1] || playerChoice[i] == playerChoice[i+2] || playerChoice[i] == playerChoice[i+3] || playerChoice[i] == playerChoice[i-1] || playerChoice[i] == playerChoice[i-2] || playerChoice[i] == playerChoice[i-3]) {
+
             }
+            else {
+                if (thisHasBeenDone[i] != true) {
+                    amountHalf++
+                }
+            }
+            
     }
     thisHasBeenDone[i] = false
     }
