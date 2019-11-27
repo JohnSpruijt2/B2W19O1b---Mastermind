@@ -85,7 +85,6 @@ function colourCodePicker() {
             colourCodePicker()
         }
     }
-    console.log(colourCode)
 }
 var thisHasBeenDone = [false,false,false,false]
 function submit() {
