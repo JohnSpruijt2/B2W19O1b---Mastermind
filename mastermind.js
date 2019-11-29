@@ -4,6 +4,7 @@ function br() {
         x.innerHTML = "<br>"
         page.appendChild(x)
 }
+
 const mainDiv = document.createElement("div")
     document.body.appendChild(mainDiv)
     mainDiv.setAttribute('id',"page")
